@@ -5,3 +5,4 @@ html.custom-data.json
 # Backend environment
 .env
 .venv
+backend/__pycache__/
