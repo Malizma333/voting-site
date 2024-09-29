@@ -1,8 +1,21 @@
-# Editor Stuff
-.vscode
-html.custom-data.json
+node_modules
 
-# Backend environment
+# Output
+.output
+.vercel
+/.svelte-kit
+/build
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
 .env
-.venv
-backend/__pycache__/
+.env.*
+!.env.example
+!.env.test
+
+# Vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
