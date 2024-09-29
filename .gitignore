@@ -1,8 +1,8 @@
 # Editor Stuff
 .vscode
-html.custom-data.json
+vscode.html-custom-data.json
 
 # Backend environment
 .env
 .venv
-backend/__pycache__/
+__pycache__

@@ -8,6 +8,7 @@
 
 body {
   overflow: hidden;
+  user-select: none;
 }
 
 .vote-container {
@@ -32,15 +33,18 @@ body {
 a.source {
   font-size: x-large;
   color: var(--sl-color-primary-300);
+  text-decoration: none;
 }
 
 .thumb-container {
   position: relative;
   display: flex;
+  margin-bottom: 2vh;
 }
 
 .thumb {
   width: 100%;
+  pointer-events: none;
 }
 
 .thumb-overlay {

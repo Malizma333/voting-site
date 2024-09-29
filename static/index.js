@@ -27,13 +27,13 @@ window.onload = () => {
   }
   
   const choice1_elem = document.querySelector("#choice1");
-  choice1_elem.querySelector(".thumb").addEventListener("click", (e) => {
+  choice1_elem.querySelector(".thumb-container").addEventListener("click", (e) => {
     e.preventDefault();
     onSetChoice(1);
   });
 
   const choice2_elem = document.querySelector("#choice2");
-  choice2_elem.querySelector(".thumb").addEventListener("click", (e) => {
+  choice2_elem.querySelector(".thumb-container").addEventListener("click", (e) => {
     e.preventDefault();
     onSetChoice(2);
   });
