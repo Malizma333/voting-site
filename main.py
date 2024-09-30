@@ -54,8 +54,7 @@ async def getApiYoutubePlaylist(request: Request):
     for video_data in video_snippets:
       video_data_array.append([
         video_data["title"],
-        video_data["thumbnails"]["default"]["url"],
-        "http://youtu.be/" + video_data["resourceId"]["videoId"]
+        video_data["resourceId"]["videoId"]
       ])
     
     nextPageToken = responseJson.get("nextPageToken", None)
