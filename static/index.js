@@ -1,6 +1,14 @@
 window.onload = async () => {
-  const req = await fetch("/api/youtube_data");
-  const youtubePlaylist = await req.json();
+  const ytStorageKey = "YOUTUBE_NOMINATION_PLAYLIST";
+
+  let youtubePlaylist = JSON.parse(localStorage.getItem(ytStorageKey));
+  
+  if(youtubePlaylist === null) {
+    const req = await fetch("/api/youtube_data");
+    youtubePlaylist = await req.json();
+
+    localStorage.setItem(ytStorageKey, JSON.stringify(youtubePlaylist));
+  }
 
   const votingFormEl = document.querySelector("form");
   const radioGroupEl = votingFormEl.querySelector("sl-radio-group");
