@@ -5,12 +5,17 @@ import logging
 import requests
 
 from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
-from fastapi import Request, FastAPI
+from fastapi import FastAPI, Request
+
+from slowapi.errors import RateLimitExceeded
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
 
 if(sys.prefix == sys.base_prefix):
   print("ERROR: Not in venv")
   exit()
+
+limiter = Limiter(key_func=get_remote_address)
 
 logger = logging.getLogger("uvicorn.error")
 logger.setLevel(logging.DEBUG)
@@ -21,13 +26,16 @@ dotenv.load_dotenv()
 
 app = FastAPI(title="root")
 api_app = FastAPI(title="api")
+api_app.state.limiter = limiter
+api_app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 @api_app.get("/")
 async def getApiRoot():
   return {"message": "Server Online", "status": 200}
 
 @api_app.get("/youtube_data")
-async def getApiYoutubePlaylist():
+@limiter.limit("5/minute")
+async def getApiYoutubePlaylist(request: Request):
   video_data_array = []
   nextPageToken = None
 
