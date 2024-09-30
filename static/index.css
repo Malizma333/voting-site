@@ -11,32 +11,17 @@ body {
   user-select: none;
 }
 
-.vote-tab-content {
+form {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
 
-.choice-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.video-player-container {
-  display: flex;
-}
-
-.video-player-container iframe {
+iframe {
   margin: 0 0.5vw;
   width: 45vw;
   aspect-ratio: 16/9;
-}
-
-.radio-group {
-  margin-bottom: 2vh;
 }
 
 .radio-group sl-radio-button {
@@ -45,7 +30,7 @@ body {
 }
 
 .radio-group sl-radio-button::part(button) {
-  border-radius: 0 0 1em 1em;
+  border-radius: 0;
   font-size: large;
   height: 3em;
 }
