@@ -27,31 +27,35 @@
       <!-- <sl-tab-panel name="nominating">
       </sl-tab-panel> -->
       <sl-tab-panel name="vote">
-        <div class="vote-container">
+        <div class="vote-tab-content">
           <h2>Which is better?</h2>
           <div class="choice-container">
-            <div class="choice" id="choice1">
-              <div class="thumb-container">
-                <img class="thumb" src="https://placehold.co/1280x720" alt="Thumbnail placeholder" />
-                <div class="thumb-overlay">Choice 1</div>
-              </div>
-              <a class="source" href="https://placehold.co/1280x720" target="_blank">
-                Watch Here
-                <i class="fa-solid fa-arrow-up-right-from-square"></i>
-              </a>
+            <div class="video-player-container">
+              <iframe
+                class="video-player"
+                type="text/html"
+                src="https://www.youtube.com/embed/M7lc1UVf-VE?autoplay=1&origin=http://localhost"
+                frameborder="0">
+              </iframe>
+              <iframe
+                class="video-player"
+                type="text/html"
+                src="https://www.youtube.com/embed/M7lc1UVf-VE?autoplay=1&origin=http://localhost"
+                frameborder="0">
+              </iframe>
             </div>
-            <div class="choice" id="choice2">
-              <div class="thumb-container">
-                <img class="thumb" src="https://placehold.co/1280x720" alt="Thumbnail placeholder" />
-                <div class="thumb-overlay">Choice 2</div>
-              </div>
-              <a class="source" href="https://placehold.co/1280x720" target="_blank">
-                Watch Here
-                <i class="fa-solid fa-arrow-up-right-from-square"></i>
-              </a>
-            </div>
+            <sl-radio-group class="radio-group --sl-border-radius-small" value="0">
+              <sl-radio-button value="1">
+                Option 1
+              </sl-radio-button>
+              <sl-radio-button value="2">
+                Option 2
+              </sl-radio-button>
+            </sl-radio-group>
           </div>
-          <sl-button id="next-button" disabled size="large">Next</sl-button>
+          <sl-button size="large">
+            Next
+          </sl-button>
         </div>
       </sl-tab-panel>
     </sl-tab-group>
