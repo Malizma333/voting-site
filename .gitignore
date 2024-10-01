@@ -1,7 +1,3 @@
-# Editor Stuff
-.vscode
-vscode.html-custom-data.json
-
 # Backend environment
 .env
 .venv
