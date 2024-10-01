@@ -1,14 +1,32 @@
 class CompetitorNode {
   constructor(competitor) {
     this.competitor = competitor;
+    this.rating = 1000;
     this.matchL = undefined;
     this.matchR = undefined;
   }
 
-  resolveMatch(winner) {
-    this.competitor = winner;
-    this.matchR = undefined;
+  resolveMatch(rightWins) {
+    let winner, loser;
+    if(rightWins === 0) {
+      winner = this.matchL;
+      loser = this.matchR;
+    } else {
+      winner = this.matchR;
+      loser = this.matchL;
+    }
+
+    // TODO: This formula is probably wrong
+    const probLoser = 1 / (1 + Math.pow(10, (winner.rating - loser.rating) / 400));
+    const K = 30;
+
+    loser.rating -= K * probLoser;
+
+    this.competitor = winner.competitor;
+    this.rating += K * probLoser;
     this.matchL = undefined;
+    this.matchR = undefined;
+    return loser;
   }
 
   addMatch(other) {
@@ -42,7 +60,7 @@ class ELOBracket {
   }
 }
 
-function populateCompetitionUI(votingFormEl, competition, final) {
+function populateCompetitionUI(votingFormEl, competition, final = false) {
   const leftVideoEl = votingFormEl.querySelector(".video-l");
   const rightVideoEl = votingFormEl.querySelector(".video-r");
   const leftRadioEl = votingFormEl.querySelector("sl-radio-button[value=\"left\"]");
@@ -51,8 +69,8 @@ function populateCompetitionUI(votingFormEl, competition, final) {
 
   leftVideoEl.src = "https://www.youtube.com/embed/" + competition.matchL.competitor[1];
   rightVideoEl.src = "https://www.youtube.com/embed/" + competition.matchR.competitor[1];
-  leftRadioEl.innerHTML = competition.matchL.competitor[0];
-  rightRadioEl.innerHTML = competition.matchR.competitor[0];
+  leftRadioEl.innerHTML = competition.matchL.competitor[0] + competition.matchL.rating;
+  rightRadioEl.innerHTML = competition.matchR.competitor[0] + competition.matchR.rating;
 
   if(final) {
     submitButtonEl.innerHTML = "Finish"
@@ -71,10 +89,6 @@ async function initPlaylist() {
     localStorage.setItem(ytStorageKey, JSON.stringify(youtubePlaylist));
   }
 
-  for(let i = 0; i < youtubePlaylist.length; i++) {
-    youtubePlaylist[i].push(1000);
-  }
-
   return youtubePlaylist;
 }
 
@@ -86,6 +100,7 @@ window.onload = async () => {
 
   let currentCompetition = bracket.popCompetition();
   populateCompetitionUI(votingFormEl, currentCompetition);
+  const standings = [];
 
   votingFormEl.onsubmit = (e) => {
     e.preventDefault();
@@ -95,15 +110,25 @@ window.onload = async () => {
       return;
     }
 
+    let loser;
+
     if (radioGroupEl.value == 'left') {
-      currentCompetition.resolveMatch(currentCompetition.matchL.competitor);
+      loser = currentCompetition.resolveMatch(0);
     } else {
-      currentCompetition.resolveMatch(currentCompetition.matchR.competitor);
+      loser = currentCompetition.resolveMatch(1);
     }
+
+    standings.push(loser);
 
     currentCompetition = bracket.popCompetition();
 
     if(currentCompetition == null) {
+      standings.push(bracket.rootCompetitor);
+      for(const competitor of standings) {
+        console.log(competitor.competitor, competitor.rating);
+      }
+      
+      submitButtonEl.disabled = true;
       return;
     }
 
