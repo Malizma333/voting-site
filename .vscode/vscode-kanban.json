@@ -4,6 +4,21 @@
       "assignedTo": {
         "name": "Malizma333"
       },
+      "category": "Feature",
+      "creation_time": "2024-10-01T01:31:17.569Z",
+      "description": {
+        "content": "Create google sheet for storing form data",
+        "mime": "text/markdown"
+      },
+      "id": "7",
+      "prio": 2,
+      "references": [],
+      "title": "Google Sheet Storage"
+    },
+    {
+      "assignedTo": {
+        "name": "Malizma333"
+      },
       "category": "Bug",
       "creation_time": "2024-10-01T01:27:19.633Z",
       "description": {
@@ -29,21 +44,6 @@
       "prio": 1,
       "references": [],
       "title": "Custom Voting Tab"
-    },
-    {
-      "assignedTo": {
-        "name": "Malizma333"
-      },
-      "category": "Feature",
-      "creation_time": "2024-10-01T01:26:51.227Z",
-      "description": {
-        "content": "- Create algorithm and interface for elo voting\n- Display results at end of voting period\n- Display options for sending results or continuing vote",
-        "mime": "text/markdown"
-      },
-      "id": "5",
-      "prio": 1,
-      "references": [],
-      "title": "ELO Voting Tab"
     },
     {
       "assignedTo": {
@@ -89,24 +89,25 @@
       "prio": 0,
       "references": [],
       "title": "Vote Season Warning"
-    },
+    }
+  ],
+  "in-progress": [
     {
       "assignedTo": {
         "name": "Malizma333"
       },
       "category": "Feature",
-      "creation_time": "2024-10-01T01:31:17.569Z",
+      "creation_time": "2024-10-01T01:26:51.227Z",
       "description": {
-        "content": "Create google sheet for storing form data",
+        "content": "- Create algorithm and interface for elo voting\n- Display results at end of voting period\n- Display options for sending results or continuing vote",
         "mime": "text/markdown"
       },
-      "id": "7",
-      "prio": 2,
+      "id": "5",
+      "prio": 1,
       "references": [],
-      "title": "Google Sheet Storage"
+      "title": "ELO Voting Tab"
     }
   ],
-  "in-progress": [],
   "testing": [],
   "done": []
 }
