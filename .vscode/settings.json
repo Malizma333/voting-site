@@ -1,3 +1,4 @@
 {
-  "html.customData": ["vscode.html-custom-data.json"]
+  "html.customData": ["vscode.html-custom-data.json"],
+  "standard.enableGlobally": true
 }
