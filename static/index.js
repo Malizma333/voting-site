@@ -52,7 +52,7 @@ class ELOBracket {
   }
 
   popCompetition() {
-    if(this.competitionQueue.length == 0) {
+    if(this.competitionQueue.length === 0) {
       return null;
     }
 
@@ -86,6 +86,16 @@ async function initPlaylist() {
     const req = await fetch("/api/youtube_data");
     youtubePlaylist = await req.json();
 
+    if(req.status !== 200) {
+      console.error("[Youtube API]", req.statusText);
+      return null;
+    }
+
+    if(youtubePlaylist.includes("Error")) {
+      console.error("[Youtube API]", youtubePlaylist);
+      return null;
+    }
+
     localStorage.setItem(ytStorageKey, JSON.stringify(youtubePlaylist));
   }
 
@@ -94,25 +104,39 @@ async function initPlaylist() {
 
 window.onload = async () => {
   const youtubePlaylist = await initPlaylist();
+
+  if(youtubePlaylist === null) {
+    // TODO: Display proper error UI
+    return;
+  }
+
   const votingFormEl = document.querySelector("form");
-  const submitButtonEl = votingFormEl.querySelector("sl-button[type=\"submit\"]");
+  const radioGroupEl = votingFormEl.querySelector("sl-radio-group");
   const bracket = new ELOBracket(youtubePlaylist);
 
   let currentCompetition = bracket.popCompetition();
   populateCompetitionUI(votingFormEl, currentCompetition);
   const standings = [];
 
-  votingFormEl.onsubmit = (e) => {
-    e.preventDefault();
-    const radioGroupEl = votingFormEl.querySelector("sl-radio-group");
+  radioGroupEl.addEventListener("sl-change", function(_) {
+    const submitButtonEl = votingFormEl.querySelector("sl-button[type=\"submit\"]");
+    if (radioGroupEl.value === '') {
+      submitButtonEl.disabled = false;
+    } else {
+      submitButtonEl.disabled = false;
+    }
+  });
 
-    if (radioGroupEl.value == '') {
+  votingFormEl.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    if (radioGroupEl.value === '') {
       return;
     }
 
     let loser;
 
-    if (radioGroupEl.value == 'left') {
+    if (radioGroupEl.value === 'left') {
       loser = currentCompetition.resolveMatch(0);
     } else {
       loser = currentCompetition.resolveMatch(1);
@@ -122,13 +146,12 @@ window.onload = async () => {
 
     currentCompetition = bracket.popCompetition();
 
-    if(currentCompetition == null) {
+    if(currentCompetition === null) {
       standings.push(bracket.rootCompetitor);
       for(const competitor of standings) {
         console.log(competitor.competitor, competitor.rating);
       }
-      
-      submitButtonEl.disabled = true;
+
       return;
     }
 
@@ -136,7 +159,5 @@ window.onload = async () => {
     populateCompetitionUI(votingFormEl, currentCompetition, isFinale);
 
     radioGroupEl.value = '';
-  }
-
-  submitButtonEl.disabled = false;
+  });
 }
