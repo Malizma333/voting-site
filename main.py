@@ -65,4 +65,9 @@ async def getApiYoutubePlaylist(request: Request):
   return video_data_array
 
 app.mount("/api", api_app)
-app.mount("/", StaticFiles(directory = "static", html = True), name = "static")
+
+class MyStatics(StaticFiles):
+  def is_not_modified(self, response_headers, request_headers):
+    return False
+
+app.mount("/", app=MyStatics(directory = "static", html = True), name = "static")

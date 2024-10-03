@@ -37,3 +37,21 @@ iframe {
   white-space: normal;
   word-break: break-all;
 }
+
+.elo-results {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.elo-results li {
+  margin-bottom: 1em;
+  font-size: large;
+}
+
+.elo-success {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

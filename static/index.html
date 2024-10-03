@@ -14,11 +14,11 @@
     <link rel="icon" href="assets/icon.svg" />
     <link rel="apple-touch-icon" href="assets/icon.svg" />
     <link rel="stylesheet" href="index.css" />
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"></noscript>
     <script defer type="module" src="index.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.17.1/cdn/themes/dark.css" />
     <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.17.1/cdn/shoelace-autoloader.js"></script>
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"></noscript>
   </head>
   <body>
     <sl-tab-group>
@@ -28,6 +28,17 @@
       <sl-tab slot="nav" panel="elo-vote" active>ELO Vote</sl-tab>
 
       <sl-tab-panel name="elo-vote">
+        <div class="elo-success">
+          <h1>Success! Your response has been submitted.</h1>
+        </div>
+        <div class="elo-results">
+          <h2>Results</h2>
+          <ol type="1"></ol>
+          <div>
+            <sl-button class="refine-button">Refine <i class="fa-solid fa-pen-to-square"></i></sl-button>
+            <sl-button class="submit-button">Submit <i class="fa-solid fa-cloud-arrow-up"></i></sl-button>
+          </div>
+        </div>
         <form>
           <h2>Which do you prefer?</h2>
           <div>
