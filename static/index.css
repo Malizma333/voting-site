@@ -38,19 +38,19 @@ iframe {
   word-break: break-all;
 }
 
-.elo-results {
+.comparison-results {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
 
-.elo-results li {
+.comparison-results li {
   margin-bottom: 1em;
   font-size: large;
 }
 
-.elo-success {
+.comparison-success {
   display: flex;
   justify-content: center;
   align-items: center;

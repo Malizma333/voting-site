@@ -12,12 +12,12 @@ window.onload = async () => {
   const bracketVoterLogic = new BracketVoter(youtubePlaylist)
 
   const tabGroupEl = document.querySelector('sl-tab-group')
-  const eloTabEl = tabGroupEl.querySelector('sl-tab-panel[name="elo-vote"]')
-  const eloResultsEl = eloTabEl.querySelector('div[class="elo-results"]')
-  const votingFormEl = eloTabEl.querySelector('form')
-  const eloSubmitEl = eloTabEl.querySelector('div[class="elo-success"]')
-  const refineButtonEl = eloResultsEl.querySelector('sl-button[class="refine-button"]')
-  const submitButtonEl = eloResultsEl.querySelector('sl-button[class="submit-button"]')
+  const comparisonTabEl = tabGroupEl.querySelector('sl-tab-panel[name="comparison-vote"]')
+  const comparisonResultsEl = comparisonTabEl.querySelector('div[class="comparison-results"]')
+  const votingFormEl = comparisonTabEl.querySelector('form')
+  const comparisonSubmitEl = comparisonTabEl.querySelector('div[class="comparison-success"]')
+  const refineButtonEl = comparisonResultsEl.querySelector('sl-button[class="refine-button"]')
+  const submitButtonEl = comparisonResultsEl.querySelector('sl-button[class="submit-button"]')
   const radioGroupEl = votingFormEl.querySelector('sl-radio-group')
   const nextButtonEl = votingFormEl.querySelector('sl-button[type="submit"]')
   const leftVideoEl = votingFormEl.querySelector('.video-l')
@@ -51,10 +51,10 @@ window.onload = async () => {
 
     if (bracketVoterLogic.getFinished()) {
       for (let i = 0; i < 10; i++) {
-        eloResultsEl.querySelector('ol').innerHTML += `<li>${bracketVoterLogic.standings[i].competitorData[0]}</li>`
+        comparisonResultsEl.querySelector('ol').innerHTML += `<li>${bracketVoterLogic.standings[i].competitorData[0]}</li>`
       }
 
-      eloResultsEl.style.display = 'flex'
+      comparisonResultsEl.style.display = 'flex'
       votingFormEl.style.display = 'none'
     } else {
       leftVideoEl.src = 'https://www.youtube.com/embed/' + bracketVoterLogic.currentCompetition.matchL.competitorData[1]
@@ -71,8 +71,8 @@ window.onload = async () => {
   })
 
   refineButtonEl.addEventListener('click', function (_) {
-    eloResultsEl.querySelector('ol').innerHTML = ''
-    eloResultsEl.style.display = 'none'
+    comparisonResultsEl.querySelector('ol').innerHTML = ''
+    comparisonResultsEl.style.display = 'none'
     votingFormEl.style.display = 'flex'
     nextButtonEl.innerHTML = 'Next'
 
@@ -85,11 +85,11 @@ window.onload = async () => {
   })
 
   submitButtonEl.addEventListener('click', function (_) {
-    eloResultsEl.style.display = 'none'
+    comparisonResultsEl.style.display = 'none'
     votingFormEl.style.display = 'none'
-    eloSubmitEl.style.display = 'flex'
+    comparisonSubmitEl.style.display = 'flex'
   })
 
-  eloResultsEl.style.display = 'none'
-  eloSubmitEl.style.display = 'none'
+  comparisonResultsEl.style.display = 'none'
+  comparisonSubmitEl.style.display = 'none'
 }

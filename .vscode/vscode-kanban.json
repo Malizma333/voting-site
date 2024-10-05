@@ -99,13 +99,13 @@
       "category": "Feature",
       "creation_time": "2024-10-01T01:26:51.227Z",
       "description": {
-        "content": "- Create algorithm and interface for elo voting\n- Display results at end of voting period\n- Display options for sending results or continuing vote",
+        "content": "- Create algorithm and interface for comparison voting\n- Display results at end of voting period\n- Display options for sending results or continuing vote",
         "mime": "text/markdown"
       },
       "id": "5",
       "prio": 1,
       "references": [],
-      "title": "ELO Voting Tab"
+      "title": "Comparison Voting Tab"
     }
   ],
   "testing": [],
