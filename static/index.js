@@ -5,7 +5,16 @@ async function populateComparisonVoteTab () {
   const youtubePlaylist = await PlaylistLoader.initPlaylist()
 
   if (youtubePlaylist === null) {
-    // TODO: Display proper error UI
+    const compareVotingResults = document.getElementById('compareVotingResults')
+    const compareVotingForm = document.getElementById('compareVotingForm')
+    const compareSuccessConfirm = document.getElementById('compareSuccessConfirm')
+    compareVotingResults.style.display = 'none'
+    compareSuccessConfirm.style.display = 'none'
+    compareVotingForm.style.display = 'none'
+
+    const compareError = document.getElementById('compareError')
+    compareError.style.display = 'flex'
+    compareError.innerHTML = 'Error loading Youtube Playlist. See console for more information.'
     return
   }
 
