@@ -1,5 +1,4 @@
 import { BracketVoter } from './classes/BracketVoter.js'
-import { Debug } from './classes/Debug.js'
 import { PlaylistLoader } from './classes/PlaylistLoader.js'
 
 window.onload = async () => {
@@ -51,7 +50,6 @@ window.onload = async () => {
     bracketVoterLogic.decideMatch(radioGroupEl.value)
 
     if (bracketVoterLogic.getFinished()) {
-      console.log(bracketVoterLogic.standings)
       for (let i = 0; i < 10; i++) {
         eloResultsEl.querySelector('ol').innerHTML += `<li>${bracketVoterLogic.standings[i].competitorData[0]}</li>`
       }
@@ -91,8 +89,6 @@ window.onload = async () => {
     votingFormEl.style.display = 'none'
     eloSubmitEl.style.display = 'flex'
   })
-
-  Debug.simulateBracketVote(youtubePlaylist.length - 2)
 
   eloResultsEl.style.display = 'none'
   eloSubmitEl.style.display = 'none'

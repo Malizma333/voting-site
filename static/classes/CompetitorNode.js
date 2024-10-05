@@ -10,7 +10,7 @@ export class CompetitorNode {
   /**
    * Default rating for a competitor
    */
-  static DEFAULT_RATING = 1000
+  static DEFAULT_RATING = 0
 
   /**
    * @param {Object} data Data to keep track of related to our competitor
@@ -49,19 +49,14 @@ export class CompetitorNode {
       loser = this.matchR
     }
 
-    // Elo function calculation to determine ratings after match
-    const K = 32
-    const probDelta = Math.floor(K / (1 + Math.pow(10, (winner.rating - loser.rating) / 400)))
-
     // Replace this match with winner
     this.competitorData = winner.competitorData
-    this.rating += probDelta
+    this.rating = winner.rating + 1
     this.matchL = undefined
     this.matchR = undefined
     this.matchFlag = false
 
     // Return loser
-    loser.rating -= probDelta
     return loser
   }
 
