@@ -24,13 +24,13 @@ iframe {
   aspect-ratio: 16/9;
 }
 
-.radio-group sl-radio-button {
+sl-radio-group.comparison sl-radio-button {
   margin: 0 0.5vw;
   width: 45vw;
   height: 100%;
 }
 
-.radio-group sl-radio-button::part(button) {
+sl-radio-group.comparison sl-radio-button::part(button) {
   min-height: 5rem;
   border-radius: 0;
   font-size: large;
@@ -50,7 +50,7 @@ iframe {
   font-size: large;
 }
 
-.comparison-success {
+.success-confirm {
   display: flex;
   justify-content: center;
   align-items: center;

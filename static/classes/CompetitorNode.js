@@ -36,7 +36,7 @@ export class CompetitorNode {
    */
   resolveMatch (rightWins) {
     if (!this.matchFlag) {
-      throw new Error('Cannot resolve match on competitor!')
+      throw new Error('[CompetitorNode] Cannot resolve match on competitor!')
     }
 
     let winner, loser
@@ -66,7 +66,7 @@ export class CompetitorNode {
    */
   createMatch (otherCompetitor) {
     if (this.matchFlag) {
-      throw new Error('Cannot create match from existing match!')
+      throw new Error('[CompetitorNode] Cannot create match from existing match!')
     }
 
     this.matchL = new CompetitorNode(this.competitorData, this.rating)

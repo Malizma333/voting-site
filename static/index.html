@@ -28,37 +28,39 @@
       <sl-tab slot="nav" panel="comparison-vote" active>Comparison Vote</sl-tab>
 
       <sl-tab-panel name="comparison-vote">
-        <div class="comparison-success">
+        <div id="compareSuccessConfirm" class="success-confirm">
           <h1>Success! Your response has been submitted.</h1>
         </div>
-        <div class="comparison-results">
+        <div id="compareVotingResults" class="comparison-results">
           <h2>Results</h2>
           <ol type="1"></ol>
           <div>
-            <sl-button class="refine-button">Refine <i class="fa-solid fa-pen-to-square"></i></sl-button>
-            <sl-button class="submit-button">Submit <i class="fa-solid fa-cloud-arrow-up"></i></sl-button>
+            <sl-button class="refine-button" id="refineCompareResults">Refine <i class="fa-solid fa-pen-to-square"></i></sl-button>
+            <sl-button class="submit-button" id="submitCompareResults">Submit <i class="fa-solid fa-cloud-arrow-up"></i></sl-button>
           </div>
         </div>
-        <form>
+        <form id="compareVotingForm">
           <h2>Which do you prefer?</h2>
           <div>
             <iframe
               class="video-l"
+              id="leftCompareVideo"
               type="text/html"
               frameborder="0">
             </iframe>
             <iframe
               class="video-r"
+              id="rightCompareFrame"
               type="text/html"
               frameborder="0">
             </iframe>
           </div>
-          <sl-radio-group class="radio-group --sl-border-radius-small">
-            <sl-radio-button value="left"></sl-radio-button>
-            <sl-radio-button value="right"></sl-radio-button>
+          <sl-radio-group id="compareRadioGroup" class="comparison --sl-border-radius-small">
+            <sl-radio-button value="left" id="leftCompareRadio"></sl-radio-button>
+            <sl-radio-button value="right" id="rightCompareRadio"></sl-radio-button>
           </sl-radio-group>
           <br />
-          <sl-button type="submit" variant="primary" size="large" disabled>
+          <sl-button id="nextCompareButton" type="submit" variant="primary" size="large" disabled>
             Next
           </sl-button>
         </div>

@@ -1,7 +1,7 @@
 import { BracketVoter } from './classes/BracketVoter.js'
 import { PlaylistLoader } from './classes/PlaylistLoader.js'
 
-window.onload = async () => {
+async function populateComparisonVoteTab () {
   const youtubePlaylist = await PlaylistLoader.initPlaylist()
 
   if (youtubePlaylist === null) {
@@ -11,85 +11,87 @@ window.onload = async () => {
 
   const bracketVoterLogic = new BracketVoter(youtubePlaylist)
 
-  const tabGroupEl = document.querySelector('sl-tab-group')
-  const comparisonTabEl = tabGroupEl.querySelector('sl-tab-panel[name="comparison-vote"]')
-  const comparisonResultsEl = comparisonTabEl.querySelector('div[class="comparison-results"]')
-  const votingFormEl = comparisonTabEl.querySelector('form')
-  const comparisonSubmitEl = comparisonTabEl.querySelector('div[class="comparison-success"]')
-  const refineButtonEl = comparisonResultsEl.querySelector('sl-button[class="refine-button"]')
-  const submitButtonEl = comparisonResultsEl.querySelector('sl-button[class="submit-button"]')
-  const radioGroupEl = votingFormEl.querySelector('sl-radio-group')
-  const nextButtonEl = votingFormEl.querySelector('sl-button[type="submit"]')
-  const leftVideoEl = votingFormEl.querySelector('.video-l')
-  const rightVideoEl = votingFormEl.querySelector('.video-r')
-  const leftRadioEl = votingFormEl.querySelector('sl-radio-button[value="left"]')
-  const rightRadioEl = votingFormEl.querySelector('sl-radio-button[value="right"]')
+  const compareVotingResults = document.getElementById('compareVotingResults')
+  const compareVotingForm = document.getElementById('compareVotingForm')
+  const compareSuccessConfirm = document.getElementById('compareSuccessConfirm')
+  const refineCompareResults = document.getElementById('refineCompareResults')
+  const submitCompareResults = document.getElementById('submitCompareResults')
+  const compareRadioGroup = document.getElementById('compareRadioGroup')
+  const nextCompareButton = document.getElementById('nextCompareButton')
+  const leftCompareVideo = document.getElementById('leftCompareVideo')
+  const rightCompareFrame = document.getElementById('rightCompareFrame')
+  const leftCompareRadio = document.getElementById('leftCompareRadio')
+  const rightCompareRadio = document.getElementById('rightCompareRadio')
 
-  leftVideoEl.src = 'https://www.youtube.com/embed/' + bracketVoterLogic.currentCompetition.matchL.competitorData[1]
-  rightVideoEl.src = 'https://www.youtube.com/embed/' + bracketVoterLogic.currentCompetition.matchR.competitorData[1]
-  leftRadioEl.innerHTML = bracketVoterLogic.currentCompetition.matchL.competitorData[0]
-  rightRadioEl.innerHTML = bracketVoterLogic.currentCompetition.matchR.competitorData[0]
+  leftCompareVideo.src = 'https://www.youtube.com/embed/' + bracketVoterLogic.currentCompetition.matchL.competitorData[1]
+  rightCompareFrame.src = 'https://www.youtube.com/embed/' + bracketVoterLogic.currentCompetition.matchR.competitorData[1]
+  leftCompareRadio.innerHTML = bracketVoterLogic.currentCompetition.matchL.competitorData[0]
+  rightCompareRadio.innerHTML = bracketVoterLogic.currentCompetition.matchR.competitorData[0]
 
-  radioGroupEl.addEventListener('sl-change', function (_) {
-    if (radioGroupEl.value === '') {
-      nextButtonEl.disabled = true
+  compareRadioGroup.addEventListener('sl-change', function (_) {
+    if (compareRadioGroup.value === '') {
+      nextCompareButton.disabled = true
     } else {
-      nextButtonEl.disabled = false
+      nextCompareButton.disabled = false
     }
   })
 
-  votingFormEl.addEventListener('submit', function (e) {
+  compareVotingForm.addEventListener('submit', function (e) {
     e.preventDefault()
 
-    nextButtonEl.disabled = true
+    nextCompareButton.disabled = true
 
-    if (radioGroupEl.value === '') {
+    if (compareRadioGroup.value === '') {
       return
     }
 
-    bracketVoterLogic.decideMatch(radioGroupEl.value)
+    bracketVoterLogic.decideMatch(compareRadioGroup.value)
 
     if (bracketVoterLogic.getFinished()) {
       for (let i = 0; i < 10; i++) {
-        comparisonResultsEl.querySelector('ol').innerHTML += `<li>${bracketVoterLogic.standings[i].competitorData[0]}</li>`
+        compareVotingResults.querySelector('ol').innerHTML += `<li>${bracketVoterLogic.standings[i].competitorData[0]}</li>`
       }
 
-      comparisonResultsEl.style.display = 'flex'
-      votingFormEl.style.display = 'none'
+      compareVotingResults.style.display = 'flex'
+      compareVotingForm.style.display = 'none'
     } else {
-      leftVideoEl.src = 'https://www.youtube.com/embed/' + bracketVoterLogic.currentCompetition.matchL.competitorData[1]
-      rightVideoEl.src = 'https://www.youtube.com/embed/' + bracketVoterLogic.currentCompetition.matchR.competitorData[1]
-      leftRadioEl.innerHTML = bracketVoterLogic.currentCompetition.matchL.competitorData[0]
-      rightRadioEl.innerHTML = bracketVoterLogic.currentCompetition.matchR.competitorData[0]
+      leftCompareVideo.src = 'https://www.youtube.com/embed/' + bracketVoterLogic.currentCompetition.matchL.competitorData[1]
+      rightCompareFrame.src = 'https://www.youtube.com/embed/' + bracketVoterLogic.currentCompetition.matchR.competitorData[1]
+      leftCompareRadio.innerHTML = bracketVoterLogic.currentCompetition.matchL.competitorData[0]
+      rightCompareRadio.innerHTML = bracketVoterLogic.currentCompetition.matchR.competitorData[0]
 
       if (bracketVoterLogic.bracket.lastRound()) {
-        nextButtonEl.innerHTML = 'Finish'
+        nextCompareButton.innerHTML = 'Finish'
       }
 
-      radioGroupEl.value = ''
+      compareRadioGroup.value = ''
     }
   })
 
-  refineButtonEl.addEventListener('click', function (_) {
-    comparisonResultsEl.querySelector('ol').innerHTML = ''
-    comparisonResultsEl.style.display = 'none'
-    votingFormEl.style.display = 'flex'
-    nextButtonEl.innerHTML = 'Next'
+  refineCompareResults.addEventListener('click', function (_) {
+    compareVotingResults.querySelector('ol').innerHTML = ''
+    compareVotingResults.style.display = 'none'
+    compareVotingForm.style.display = 'flex'
+    nextCompareButton.innerHTML = 'Next'
 
     bracketVoterLogic.restartBracket()
 
-    leftVideoEl.src = 'https://www.youtube.com/embed/' + bracketVoterLogic.currentCompetition.matchL.competitorData[1]
-    rightVideoEl.src = 'https://www.youtube.com/embed/' + bracketVoterLogic.currentCompetition.matchR.competitorData[1]
-    leftRadioEl.innerHTML = bracketVoterLogic.currentCompetition.matchL.competitorData[0]
-    rightRadioEl.innerHTML = bracketVoterLogic.currentCompetition.matchR.competitorData[0]
+    leftCompareVideo.src = 'https://www.youtube.com/embed/' + bracketVoterLogic.currentCompetition.matchL.competitorData[1]
+    rightCompareFrame.src = 'https://www.youtube.com/embed/' + bracketVoterLogic.currentCompetition.matchR.competitorData[1]
+    leftCompareRadio.innerHTML = bracketVoterLogic.currentCompetition.matchL.competitorData[0]
+    rightCompareRadio.innerHTML = bracketVoterLogic.currentCompetition.matchR.competitorData[0]
   })
 
-  submitButtonEl.addEventListener('click', function (_) {
-    comparisonResultsEl.style.display = 'none'
-    votingFormEl.style.display = 'none'
-    comparisonSubmitEl.style.display = 'flex'
+  submitCompareResults.addEventListener('click', function (_) {
+    compareVotingResults.style.display = 'none'
+    compareVotingForm.style.display = 'none'
+    compareSuccessConfirm.style.display = 'flex'
   })
 
-  comparisonResultsEl.style.display = 'none'
-  comparisonSubmitEl.style.display = 'none'
+  compareVotingResults.style.display = 'none'
+  compareSuccessConfirm.style.display = 'none'
+}
+
+window.onload = () => {
+  populateComparisonVoteTab()
 }

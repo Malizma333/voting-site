@@ -14,6 +14,7 @@ export class Debug {
       radioGroupEl.value = ['left', 'right'][Math.floor(Math.random() * 2)]
       votingFormEl.dispatchEvent(new window.SubmitEvent('submit', { submitter: nextButtonEl }))
     }
+
     radioGroupEl.value = ''
   }
 }
